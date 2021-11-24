@@ -30,6 +30,8 @@ public class JokerGameGUI extends JFrame {
     /**
      * Construct and initialize the GUI.
      */
+    //Ali Changed the title from "JOKERROUND" in all instances to "JOKERROUND" when the players match two joker cards-
+    //and "Single player" when the player is in singleplayer mode. 
     public JokerGameGUI(String title) {
         setupGamePanel();
         setupTypePanel();

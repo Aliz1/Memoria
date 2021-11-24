@@ -82,8 +82,8 @@ public class BoardGUI extends JFrame {
      */
     public BoardGUI(Controller controller) {
         this.controller = controller;
-        musicController.stopMusic();
-        musicController.playMusic("music/GameMusic.wav");
+       // musicController.stopMusic();
+       // musicController.playMusic("music/GameMusic.wav");
         setupFrame();
         setupComponentsSizes();
         setupComponents();
@@ -384,7 +384,8 @@ public class BoardGUI extends JFrame {
             if (e.getSource() == btnBack) {
                 dispose();
                 controller.switchToMenu();
-                musicController.stopMusic();
+                //Removed the stop music since our 3 music files could not be uploaded to github - Ali
+               // musicController.stopMusic();
             }
         }
     }

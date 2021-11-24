@@ -41,7 +41,7 @@ public class Controller {
     public Controller() {
         logInPlayer1 = new LogInGUI(this, "Player One ");
         infoReader = new InfoReader("textfiles/infopanel.txt", "textfiles/symbol.txt");
-        musicController.playMusic("music/MenuMusic.wav");
+     //   musicController.playMusic("music/MenuMusic.wav");
     }
 
     /**
@@ -86,8 +86,8 @@ public class Controller {
             if (secondSymbol.equals("images/Jo")) {
                 dropCardsThread = new DropCardsThread(this, title);
                 boardGUI.setVisible(false);
-                musicController.stopMusic();
-                musicController.playMusic("music/JokerRound.wav");
+               // musicController.stopMusic();
+               // musicController.playMusic("music/JokerRound.wav");
             } else {
                 clickController.click("music/Point.wav");
                 incrementScore(POINTS_PER_MATCH);
@@ -231,7 +231,7 @@ public class Controller {
      * @param messageWin message depending on result
      */
     private void endOfGame(String name, String messageWin) {
-        musicController.stopMusic();
+       // musicController.stopMusic();
         clickController.click("music/JokerWin.wav");
 
         Object[] options = {"Avsluta", "Nej", "Ja"};
@@ -256,7 +256,7 @@ public class Controller {
         } else if (reply == JOptionPane.NO_OPTION) {
             boardGUI.setVisible(false);
             menuGUI = new MenuGUI(this);
-            musicController.playMusic("music/MenuMusic.wav");
+           // musicController.playMusic("music/MenuMusic.wav");
         }
     }
 

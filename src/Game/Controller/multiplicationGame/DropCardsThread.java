@@ -85,7 +85,7 @@ public class DropCardsThread implements Runnable {
         for (CardDropTask drop : fallingDropsList) {
             drop.setAlive(false);                               // Stop all card drop threads.
         }
-        musicController.stopMusic();
+        //musicController.stopMusic();
         gameRunning = false;                                    // Stops this game thread.
         fallingDropsList.clear();                               // To not keep getting points after game over.
         try {
@@ -96,11 +96,11 @@ public class DropCardsThread implements Runnable {
         jokerGameGui.setVisible(false);
         jokerGameGui.dispose();
         if (singlePlayer) {
-            musicController.stopMusic();
+          //  musicController.stopMusic();
             controller.switchToMenu();
         } else {
             controller.switchToBoard();
-            musicController.playMusic("music/GameMusic.wav");
+           // musicController.playMusic("music/GameMusic.wav");
             controller.addJokerPoints();
         }
     }
