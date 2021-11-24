@@ -1,13 +1,17 @@
 package Game.Model;
 
+import java.io.Serializable;
+
 /**
  * A representation of a logged in user. The user has user name and a score.
  *
  * @author Robert Rosencrantz, Adel Sabanovic, Sonja Peric, Yasir Kakar, Joakim Tell
  * @version 4.0
  */
-public class User {
+public class User implements Serializable
+{
     private String userName;
+    private String password;
     private int totalPoints;
     private int gameScore;
 
@@ -15,13 +19,20 @@ public class User {
      * Constructor
      *
      * @param userName User input
+     * @param password User password 
      */
-    public User(String userName) {
+    public User(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getPassword()
+    {
+        return password;
     }
 
     public int getGameScore() {

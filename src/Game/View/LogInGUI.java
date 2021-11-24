@@ -27,6 +27,7 @@ public class LogInGUI extends JFrame {
     private JLabel lblPi = new JLabel(piLogo);
 
     private JTextField txtUsername = new JTextField("Användarnamn (3-10 tecken)");
+    private JTextField txtPassword = new JTextField("Lösenord (5 tecken)");
 
     private Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 20);
 
@@ -51,6 +52,7 @@ public class LogInGUI extends JFrame {
         lblGame.setBounds(40, 20, 300, 50);
         lblUsername.setBounds(50, 60, 100, 100);
         txtUsername.setBounds(120, 100, 165, 25);
+        txtPassword.setBounds(120, 130, 165, 25);
         btnLogin.setBounds(168, 150, 59, 38);
         lblPi.setBounds(128, 145, 33, 40);
 
@@ -59,10 +61,14 @@ public class LogInGUI extends JFrame {
         lblUsername.setText(name);
 
         txtUsername.setForeground(Color.GRAY);
+        //Ali
+        txtPassword.setForeground(Color.GRAY);
 
         pnlMain.add(lblGame);
         pnlMain.add(lblUsername);
         pnlMain.add(txtUsername);
+        //Ali
+        pnlMain.add(txtPassword);
         pnlMain.add(btnLogin);
         pnlMain.add(lblPi);
 
@@ -78,6 +84,7 @@ public class LogInGUI extends JFrame {
         txtUsername.addKeyListener(new LimitUsername());
         btnLogin.addActionListener(new Listener());
         txtUsername.addFocusListener(new Focus());
+        txtPassword.addFocusListener(new Focus());
         btnLogin.addMouseListener(new MouseSubmit());
 
     }
@@ -104,7 +111,8 @@ public class LogInGUI extends JFrame {
     /**
      * An inner class which limits how long a username can be
      */
-    private class LimitUsername implements KeyListener {
+    private class LimitUsername implements KeyListener 
+    {
 
         @Override
         public void keyTyped(KeyEvent e) {
@@ -171,6 +179,11 @@ public class LogInGUI extends JFrame {
 
     public JTextField getTxtUsername() {
         return txtUsername;
+    }
+    //Ali 
+    public JTextField getTxtPassword()
+    {
+        return txtPassword;
     }
 
 }

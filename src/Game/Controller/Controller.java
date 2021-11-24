@@ -3,6 +3,7 @@ package Game.Controller;
 import Game.Controller.multiplicationGame.DropCardsThread;
 import Game.Model.Card;
 import Game.Model.InfoReader;
+import Game.Model.Serialization;
 import Game.Model.User;
 import Game.View.BoardGUI;
 import Game.View.LogInGUI;
@@ -30,6 +31,7 @@ public class Controller {
     private MenuGUI menuGUI;
     private DropCardsThread dropCardsThread;
     private InfoReader infoReader;
+    private Serialization serialize = new Serialization();
 
     private Card[] pairOfCards = new Card[2];   // To handle the two cards for each round of pairings.
     private User[] multiPlayer = new User[2];   // Keeps information of logged in users.
@@ -139,12 +141,21 @@ public class Controller {
     public void createUser() {
         if (multiPlayer[0] == null) {
             String name = logInPlayer1.getTxtUsername().getText();
-            multiPlayer[0] = new User(name);
+            String password = logInPlayer1.getTxtPassword().getText();
+            multiPlayer[0] = new User(name, password);
+           Boolean userExists = serialize.writeObject(multiPlayer[0]);
+            if (userExists) 
+            {
+                User existingUser = serialize.readObject(multiPlayer[0].getUserName());
+            }
+            //serialize.readObject(multiPlayer[0].getUserName());
             JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
             menuGUI = new MenuGUI(this);
         } else {
             String name = logInPlayer2.getTxtUsername().getText();
-            multiPlayer[1] = new User(name);
+            //Ali
+            String password = logInPlayer2.getTxtPassword().getText();
+            multiPlayer[1] = new User(name,password);
             JOptionPane.showMessageDialog(null, "Välkommen spelare 2: " + name);
             boardGUI = new BoardGUI(this);
             boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
