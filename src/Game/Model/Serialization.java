@@ -10,9 +10,9 @@ import java.io.ObjectOutputStream;
 public class Serialization 
 {
 
-    public final boolean writeObject(User user)
+    public final boolean userExists(String username)
     {
-        File f = new File("users/" + user.getUserName() + ".txt");
+        File f = new File("users/" + username + ".txt");
 
         if(f.exists() && !f.isDirectory()) 
         {
@@ -20,6 +20,13 @@ public class Serialization
         } 
         else
         {
+            return false;
+        }
+    }
+
+    public final void writeObject(User user)
+    {
+
             try {
                 FileOutputStream fileOut =
                 new FileOutputStream("users/" + user.getUserName() + ".txt");
@@ -31,9 +38,6 @@ public class Serialization
              } catch (IOException i) {
                 i.printStackTrace();
              } 
-             return false;  
-        }
-
         
     }
 

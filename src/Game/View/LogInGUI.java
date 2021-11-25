@@ -18,6 +18,8 @@ public class LogInGUI extends JFrame {
     private ImageIcon imgbtn = new ImageIcon("images/ok.PNG");
 
     private JPanel pnlMain = new JPanel();
+    private boolean FocusUsername = false;
+    private boolean FocusPassword = false;
 
     ImageIcon piLogo = new ImageIcon("images/pi.jpg");
 
@@ -27,7 +29,7 @@ public class LogInGUI extends JFrame {
     private JLabel lblPi = new JLabel(piLogo);
 
     private JTextField txtUsername = new JTextField("Användarnamn (3-10 tecken)");
-    private JTextField txtPassword = new JTextField("Lösenord (5 tecken)");
+    private JPasswordField txtPassword = new JPasswordField("Password");
 
     private Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 20);
 
@@ -38,6 +40,7 @@ public class LogInGUI extends JFrame {
      */
     public LogInGUI(Controller controller, String name) {
         this.controller = controller;
+
         setSize(380, 255);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -53,8 +56,8 @@ public class LogInGUI extends JFrame {
         lblUsername.setBounds(50, 60, 100, 100);
         txtUsername.setBounds(120, 100, 165, 25);
         txtPassword.setBounds(120, 130, 165, 25);
-        btnLogin.setBounds(168, 150, 59, 38);
-        lblPi.setBounds(128, 145, 33, 40);
+        btnLogin.setBounds(168, 155, 59, 38);
+        lblPi.setBounds(128, 150, 33, 40);
 
         lblPi.setVisible(false);
 
@@ -76,6 +79,10 @@ public class LogInGUI extends JFrame {
 
         listeners();
     }
+    public void hidePasswordInput()
+    {
+        txtPassword.setVisible(false);
+    }
 
     /**
      * Adds the listeners to the components
@@ -83,8 +90,8 @@ public class LogInGUI extends JFrame {
     private void listeners() {
         txtUsername.addKeyListener(new LimitUsername());
         btnLogin.addActionListener(new Listener());
-        txtUsername.addFocusListener(new Focus());
-        txtPassword.addFocusListener(new Focus());
+        txtUsername.addFocusListener(new FocusUsername());
+        txtPassword.addFocusListener(new FocusPassword());
         btnLogin.addMouseListener(new MouseSubmit());
 
     }
@@ -94,12 +101,35 @@ public class LogInGUI extends JFrame {
      *
      * @author Yasir Kakar
      */
-    private class Focus implements FocusListener {
+    private class FocusUsername implements FocusListener {
 
         @Override
         public void focusGained(FocusEvent e) {
-            txtUsername.setText(null);
-            txtUsername.setForeground(Color.BLACK);
+            if (!FocusUsername) 
+            {
+                txtUsername.setText(null);
+                txtUsername.setForeground(Color.BLACK);
+            }
+            
+            FocusUsername = true;
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+
+        }
+    }
+    private class FocusPassword implements FocusListener {
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (!FocusPassword) 
+            {
+                txtPassword.setText(null);
+                txtPassword.setForeground(Color.BLACK);
+            }
+            
+            FocusPassword = true;
         }
 
         @Override
@@ -165,17 +195,24 @@ public class LogInGUI extends JFrame {
      * Creates a MenuGUI if valid username is entered.
      */
     private class Listener implements ActionListener {
+        private boolean loginSuccessfull = false;
         public void actionPerformed(ActionEvent e) {
             if ((txtUsername.getText().trim().length() <= 10) && (txtUsername.getText().trim().length() >= 3)) {
 
-                controller.createUser();
-                setVisible(false);
-                dispose();
+                loginSuccessfull = controller.createUser();
+
+                if (loginSuccessfull) 
+                {
+                    setVisible(false);
+                    dispose();
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
             }
         }
     }
+    
 
     public JTextField getTxtUsername() {
         return txtUsername;

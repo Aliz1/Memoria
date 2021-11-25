@@ -138,28 +138,48 @@ public class Controller {
      * After called for user number one, view switch to menu.
      * After called for user number two, view switch to memory game.
      */
-    public void createUser() {
-        if (multiPlayer[0] == null) {
+    public boolean createUser() {
+        if (multiPlayer[0] == null) 
+        {
             String name = logInPlayer1.getTxtUsername().getText();
             String password = logInPlayer1.getTxtPassword().getText();
-            multiPlayer[0] = new User(name, password);
-           Boolean userExists = serialize.writeObject(multiPlayer[0]);
+           // multiPlayer[0] = new User(name, password);
+           Boolean userExists = serialize.userExists(name);
             if (userExists) 
             {
-                User existingUser = serialize.readObject(multiPlayer[0].getUserName());
+                User existingUser = serialize.readObject(name);
+                if (existingUser.getPassword().equals(password)) 
+                {
+                    multiPlayer[0] = existingUser;
+                    JOptionPane.showMessageDialog(null, "Welcome back: " + name);
+                    menuGUI = new MenuGUI(this);
+                    return true;
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "This username already exists.\nPlease try again with a new combination or another username. ");
+                    return false;
+                }
             }
-            //serialize.readObject(multiPlayer[0].getUserName());
-            JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
-            menuGUI = new MenuGUI(this);
-        } else {
+            else
+            {
+                multiPlayer[0] = new User(name, password);
+                serialize.writeObject(multiPlayer[0]);
+                JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
+                menuGUI = new MenuGUI(this);
+                return true;
+            }
+            
+        }
+        else 
+        {
             String name = logInPlayer2.getTxtUsername().getText();
-            //Ali
-            String password = logInPlayer2.getTxtPassword().getText();
-            multiPlayer[1] = new User(name,password);
+            multiPlayer[1] = new User(name,null);
             JOptionPane.showMessageDialog(null, "Välkommen spelare 2: " + name);
             boardGUI = new BoardGUI(this);
             boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
             boardGUI.getPnlPlayer2().setBorder(BorderFactory.createTitledBorder(multiPlayer[1].getUserName()));
+            return true;
         }
     }
 
@@ -179,6 +199,7 @@ public class Controller {
      */
     public void logInSecondPlayerView() {
         logInPlayer2 = new LogInGUI(this, "Player Two");
+        logInPlayer2.hidePasswordInput();
     }
 
     /**
