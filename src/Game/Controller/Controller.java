@@ -3,7 +3,6 @@ package Game.Controller;
 import Game.Controller.multiplicationGame.DropCardsThread;
 import Game.Model.Card;
 import Game.Model.InfoReader;
-import Game.Model.Serialization;
 import Game.Model.User;
 import Game.View.BoardGUI;
 import Game.View.LogInGUI;

@@ -26,6 +26,7 @@ public class LogInGUI extends JFrame {
     private JLabel lblGame = new JLabel(welcomeLogo);
 
     private JLabel lblUsername = new JLabel("Användarnamn");
+    private JLabel lblPassword = new JLabel("Password");
     private JLabel lblPi = new JLabel(piLogo);
 
     private JTextField txtUsername = new JTextField("Användarnamn (3-10 tecken)");
@@ -54,6 +55,7 @@ public class LogInGUI extends JFrame {
 
         lblGame.setBounds(40, 20, 300, 50);
         lblUsername.setBounds(50, 60, 100, 100);
+        lblPassword.setBounds(50, 90, 100, 100);
         txtUsername.setBounds(120, 100, 165, 25);
         txtPassword.setBounds(120, 130, 165, 25);
         btnLogin.setBounds(168, 155, 59, 38);
@@ -69,6 +71,7 @@ public class LogInGUI extends JFrame {
 
         pnlMain.add(lblGame);
         pnlMain.add(lblUsername);
+        pnlMain.add(lblPassword);
         pnlMain.add(txtUsername);
         //Ali
         pnlMain.add(txtPassword);
