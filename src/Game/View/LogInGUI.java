@@ -2,6 +2,7 @@ package Game.View;
 
 import Game.Controller.Controller;
 
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -52,6 +53,7 @@ public class LogInGUI extends JFrame {
         lblGame.setFont(myFont);
 
         pnlMain.setLayout(null);
+        
 
         lblGame.setBounds(40, 20, 300, 50);
         lblUsername.setBounds(50, 60, 100, 100);
@@ -96,6 +98,8 @@ public class LogInGUI extends JFrame {
         txtUsername.addFocusListener(new FocusUsername());
         txtPassword.addFocusListener(new FocusPassword());
         btnLogin.addMouseListener(new MouseSubmit());
+        txtPassword.addKeyListener(new Listener());
+        
 
     }
 
@@ -192,18 +196,23 @@ public class LogInGUI extends JFrame {
 
         }
     }
+    
 
     /**
      * Listener that controls the length of the username.
      * Creates a MenuGUI if valid username is entered.
      */
-    private class Listener implements ActionListener {
+    private class Listener implements ActionListener, KeyListener {
         private boolean loginSuccessfull = false;
-        public void actionPerformed(ActionEvent e) {
+
+        /**
+         * 
+         */
+        public void handleLogin(){ //Flyttade in koden nedan till en ny metod /Jenny
             if ((txtUsername.getText().trim().length() <= 10) && (txtUsername.getText().trim().length() >= 3)) {
-
+    
                 loginSuccessfull = controller.createUser();
-
+    
                 if (loginSuccessfull) 
                 {
                     setVisible(false);
@@ -213,9 +222,33 @@ public class LogInGUI extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
             }
-        }
-    }
     
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+           handleLogin();
+        }
+        @Override
+        public void keyTyped(KeyEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                handleLogin();
+            }        
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+       
+    }
+  
 
     public JTextField getTxtUsername() {
         return txtUsername;

@@ -150,7 +150,7 @@ public class Controller {
                 if (existingUser.getPassword().equals(password)) 
                 {
                     multiPlayer[0] = existingUser;
-                    JOptionPane.showMessageDialog(null, "Welcome back: " + name);
+                    //JOptionPane.showMessageDialog(null, "Welcome back: " + name);
                     menuGUI = new MenuGUI(this);
                     return true;
                 }
@@ -164,7 +164,7 @@ public class Controller {
             {
                 multiPlayer[0] = new User(name, password);
                 serialize.writeObject(multiPlayer[0]);
-                JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
+              //  JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
                 menuGUI = new MenuGUI(this);
                 return true;
             }
@@ -174,7 +174,7 @@ public class Controller {
         {
             String name = logInPlayer2.getTxtUsername().getText();
             multiPlayer[1] = new User(name,null);
-            JOptionPane.showMessageDialog(null, "Välkommen spelare 2: " + name);
+         //   JOptionPane.showMessageDialog(null, "Välkommen spelare 2: " + name);
             boardGUI = new BoardGUI(this);
             boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
             boardGUI.getPnlPlayer2().setBorder(BorderFactory.createTitledBorder(multiPlayer[1].getUserName()));

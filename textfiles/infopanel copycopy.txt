@@ -1,0 +1,36 @@
++ This sign is used for addition. The numbers between the sign are called terms and the result is called sum.
+- This sign is used for subtraktion. The numbers between the sign are called terms and the result is called the difference.
+· This sign is used for multiplication. The numbers between the sign are called factors and the result is called the product.
+/ This sign is used for division. The number above the sign is called the divider and the sign underneath is called the denominator. The result is called the quota.
+% Percentage. In mathematics, a percentage is a number or ratio expressed as a fraction of 100. For example, 3/5 is 60/100 = 60%.
+π, "pi". This sign denotes a number that is approximately equal to 3.14. 
+One decimetre is equal to 1/10 of a metre; 30 decimeters is equal to 3 metres.
+100 centimetres is the same as one metre.
+The equation 80/X = 4 is equivalent to X = 80/4 => X = 20
+25 is subtracted from both sides. X+25-25=39-25 => X=14.
+5 is added to both sides. X-5+5=-3+5 => X=-2.
+Centi är ett prefix som betyder hundradel. Används tillsammans med enheter. Exempelvis centimeter och centiliter.
+'Centi' (in units of measurement) means one hundredth. Is used in words like for example "centimetre" and "centilitre".
+'Deci' (used commonly in units of measurement) means one tenth. For example, "decilitre"
+The cylinder is a three-dimensional geometric shape with two circular, parallell sides.
+Deka är ett prefix som betyder tio. Används tillsammans med enheter. Exempelvis dekagram.
+'Deca' is a 
+Ett begrepp som användes ofta förr. Betyder tolv.
+Hekto är ett prefix som betyder hundra. Används tillsammans med enheter. Exempelvis hektogram.
+Kilo är ett prefix som betyder tusen. Används tillsammans med enheter. Exempelvis kilogram.
+Klot är en tredimensionell geometrisk figur. En cirkel i tre dimensioner.
+Likbent triangel är en tvådimensionell geometrisk figur. Där minst två sidor är lika långa.
+Medelvärde används för att räkna ut ett genomsnittligt värde. Exempelvis medeltemperatur och medelålder.
+Milli är ett prefix som betyder tusendel. Används tillsammans med enheter. Exempelvis millimeter och milliliter.
+Origo är den punkt där x-axeln och y-axeln skär i varandra.
+Parallellogram är en tvådimensionell geometrisk figur. Där motstående sidor är parallella.
+Radien är avståndet från cirkelns kant till dess mitt. Används bland annat vid beräkning av cirkelns area.
+För att räkna ut rektanglens area multiplicerar man basen med höjden.
+Rätvinklig triangel är en tvådimensionell geometrisk figur. Där en vinkel är 90 grader.
+En rät vinkel är exakt 90°. Markeras med en rät vinkelbåge för tydlighetens skull.
+För att räkna ut triangelns area multiplicerar man basen med höjden och delar sedan det med 2.
+En trubbig vinkel är större än 90°.
+Typvärdet är det vanligast förekommade värdet.
+Udda tal är inte jämnt delbara med 2.
+En spetsig vinkel är mindre än 90°.
+Diameter är avståndet från cirkelns kant till motsatt sida genom mittpunkten. Används bland annat vid beräkning av cirkelns omkrets.

@@ -216,7 +216,7 @@ public class MenuGUI extends JFrame {
         public void mouseClicked(MouseEvent e) {
             setVisible(false);
             dispose();
-            new DropCardsThread(controller, 29, "Single player");
+            new DropCardsThread(controller, 29, "Singleplayer");
 
         }
 

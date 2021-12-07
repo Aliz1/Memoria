@@ -42,6 +42,17 @@ public class Serialization
              } 
         
     }
+    /**
+     * @author Jenny Höglund. 
+     * @param score Game score to be written to highscore file.
+     */
+    public final void writeScore(int score)
+    {
+    
+    }
+    public final String getScoreList(){
+        return null;
+    }
 
     public final User readObject(String Username)
     {

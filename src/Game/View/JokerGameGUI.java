@@ -199,6 +199,7 @@ public class JokerGameGUI extends JFrame {
         textFieldPoints.setBackground(Color.WHITE);
         textFieldPoints.setForeground(Color.BLACK);
         textFieldPoints.setEditable(false);
+        
         textFieldPoints.setFocusable(false);
         textFieldPoints.setOpaque(true);
         textFieldPoints.setBorder(null);

@@ -139,7 +139,7 @@ public class CardDropTask extends Card implements Runnable {
             displayMatch();
             alive = false;
             dropCardsThread.incrementPoints();
-            Thread.sleep(2500);
+            Thread.sleep(500);
             setVisible(false);
             dropCardsThread.incrementMatches();    // Synchronizes points updates
         }
