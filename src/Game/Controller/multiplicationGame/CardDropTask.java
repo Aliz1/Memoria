@@ -136,6 +136,7 @@ public class CardDropTask extends Card implements Runnable {
     private void correctAnswer() throws InterruptedException {
         if (jokerGameGui.getAnswerTyped().equals(solved)) {
             jokerGameGui.resetLabelTyping();        // Reset typing area after a correct answer.
+            dropCardsThread.taskProblemSolved(solved); //Jenny: notify dropCardsThread that this problem has been solved.
             displayMatch();
             alive = false;
             dropCardsThread.incrementPoints();
@@ -179,5 +180,8 @@ public class CardDropTask extends Card implements Runnable {
                 setupDrop(Color.WHITE, Color.BLACK, (problem + "=" + solved));
             }
         });
+    }
+    public String getSolution(){
+        return solved;
     }
 }

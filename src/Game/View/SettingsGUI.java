@@ -200,7 +200,8 @@ public class SettingsGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            musicController.playMusic("music/MenuMusic.wav");
+        //    musicController.playMusic("music/MenuMusic.wav"); Kommenterat ut för att testa inställningar.
+            musicController.playMusic("music/GameOver.wav");
         }
     }
 

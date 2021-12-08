@@ -3,7 +3,10 @@ package Game.View;
 import Game.Controller.multiplicationGame.CardDropTask;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -27,6 +30,12 @@ public class JokerGameGUI extends JFrame {
     private JLabel lblFinalPoints;
     private String answerTyped = "";
 
+    private ImageIcon iconBack = new ImageIcon("images/back.jpg"); //Jenny: copypastade följande rader från boardgame.gui
+    private JButton btnBack = new JButton(iconBack);
+    private ImageIcon iconMemoriaLogo = new ImageIcon("images/mem2.jpg");
+    private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo); 
+    private JPanel pnlIcons;
+
     /**
      * Construct and initialize the GUI.
      */
@@ -41,6 +50,9 @@ public class JokerGameGUI extends JFrame {
         setupFrame(title);
         xButtonPressed();
     }
+
+ 
+
 
     /**
      * Updates the GUI by adding a new card drop on the game panel.
@@ -142,6 +154,7 @@ public class JokerGameGUI extends JFrame {
         setResizable(false);
         pack();
         setVisible(true);
+        
     }
 
     /**
@@ -151,9 +164,21 @@ public class JokerGameGUI extends JFrame {
         pnlMain = new JPanel();
         pnlMain.setLayout(new BorderLayout());
         pnlMain.setPreferredSize(new Dimension(1000, 600));
-
-        pnlMain.add(pnlTyping, BorderLayout.NORTH);
+        JPanel pnlNorth = new JPanel();
+        pnlNorth.setLayout(new BorderLayout());
+        JPanel pnlButtonAndIcon = new JPanel();
+        pnlButtonAndIcon.setBackground(Color.white);
+        btnBack.setBackground(Color.white);
+        btnBack.addActionListener(new BackButtonListener() 
+);
+        pnlButtonAndIcon.add(btnBack, LEFT_ALIGNMENT);
+        pnlButtonAndIcon.add(lblMemoriaLogo, CENTER_ALIGNMENT);
+        pnlNorth.setBackground(Color.white);
+        pnlNorth.add(pnlButtonAndIcon, BorderLayout.NORTH);
+        pnlNorth.add(pnlTyping, BorderLayout.CENTER);
+        pnlMain.add(pnlNorth, BorderLayout.NORTH);
         pnlMain.add(pnlGame, BorderLayout.CENTER);
+        
     }
 
     /**
@@ -167,6 +192,8 @@ public class JokerGameGUI extends JFrame {
         lblLogo.setBackground(Color.WHITE);
         setupTextFieldPoints();
         pnlTyping.add(lblLogo, BorderLayout.WEST);
+
+
         JPanel pnlCenterTyping = new JPanel(new BorderLayout());
         pnlCenterTyping.setBackground(Color.WHITE);
         labelTyping = new JLabel("") {
@@ -180,6 +207,17 @@ public class JokerGameGUI extends JFrame {
         pnlCenterTyping.add(labelTyping, BorderLayout.CENTER);
         pnlTyping.add(pnlCenterTyping, BorderLayout.CENTER);
         pnlTyping.add(textFieldPoints, BorderLayout.EAST);
+    }
+    
+    private class BackButtonListener implements java.awt.event.ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+
+            
+        }
+        
     }
 
     /**
@@ -277,4 +315,5 @@ public class JokerGameGUI extends JFrame {
             }
         });
     }
+    
 }

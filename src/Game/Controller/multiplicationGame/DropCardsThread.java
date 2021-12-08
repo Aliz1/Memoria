@@ -33,8 +33,10 @@ public class DropCardsThread implements Runnable {
     private int dropSpeed = 30;
     private boolean singlePlayer;
 
+    private ArrayList<String> solutionsOnScreenList; //Jenny
+
     /**
-     * Construct and initialize a thread with this class' tasks.
+     * Construct and initialize a thread with this class' tasks. 
      */
     public DropCardsThread(Controller controller, String title) {
         this.controller = controller;
@@ -42,7 +44,8 @@ public class DropCardsThread implements Runnable {
         random = new Random();
         singlePlayer = false;
         fallingDropsList = new ArrayList<CardDropTask>(NBR_OF_PROBLEMS_IN_BUFFER);
-        setupDropList();                                                             // Setup list of drop threads.
+        setupDropList(); // Setup list of drop threads.
+        setupSolutionsOnScreenList();                                                            
         new Thread(this).start();
     }
 
@@ -61,8 +64,15 @@ public class DropCardsThread implements Runnable {
         this.NBR_OF_PROBLEMS_IN_BUFFER = problems;
         singlePlayer = true;
         fallingDropsList = new ArrayList<CardDropTask>(NBR_OF_PROBLEMS_IN_BUFFER);
-        setupDropList();                                                             // Setup list of drop threads.
+        setupDropList();  // Setup list of drop threads.
+        setupSolutionsOnScreenList(); //Jenny                                                          
         new Thread(this).start();
+    }
+/**
+ * @author Jenny
+ */
+    private void setupSolutionsOnScreenList() {
+        solutionsOnScreenList = new ArrayList<String>();
     }
 
     /**
@@ -88,6 +98,7 @@ public class DropCardsThread implements Runnable {
         //musicController.stopMusic();
         gameRunning = false;                                    // Stops this game thread.
         fallingDropsList.clear();                               // To not keep getting points after game over.
+        solutionsOnScreenList.clear();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -149,18 +160,46 @@ public class DropCardsThread implements Runnable {
             Thread.sleep(random.nextInt(2000) + 1000);             // Delay next drop to random interval.
             if (!fallingDropsList.isEmpty()) {
                 CardDropTask nextDrop = fallingDropsList.get(problemsDropped);
-                nextDrop.setDropSpeed(dropSpeed);
-                nextDrop.setAlive(true);// Start a new drop thread.
-                if (singlePlayer) {
-                    dropSpeed--;
-                }
-                jokerGameGui.addDropToGamePanel(
+                if (okToDrop(nextDrop)){ //Jenny: if the solution is ok to drop, drop nextDrop.
+                    solutionsOnScreenList.add(nextDrop.getSolution()); //Jenny: adds nextDrop's solution to the list. 
+                    nextDrop.setDropSpeed(dropSpeed);
+                    nextDrop.setAlive(true);// Start a new drop thread.
+                    if (singlePlayer) {
+                        dropSpeed--;
+                    }
+                    jokerGameGui.addDropToGamePanel(
                         fallingDropsList.get(problemsDropped));   // Put the new drop on rain thread.
-                problemsDropped++;
+                    problemsDropped++;
+                }
+               
             }
         }
     }
+    /**
+     * @author Jenny
+     * @param nextDrop Next CardDropTask to be dropped
+     * @return true if no other card on the GUI starts with same character.
+     */
 
+    private boolean okToDrop(CardDropTask nextDrop) {
+        String temp;
+        String solution = nextDrop.getSolution();
+        for (int i = 0; i < solutionsOnScreenList.size(); i++){
+            temp = solutionsOnScreenList.get(i);
+            if (temp.charAt(0) == solution.charAt(0))
+                return false;
+        }
+        return true;
+    }
+    /**
+     * @author Jenny
+     * @param solution String to be removed from list.
+     */
+    
+    public void taskProblemSolved(String solution){
+        solutionsOnScreenList.remove(solution);
+    }
+   
     /**
      * Fill up the fallingDropsList with CardDropTasks.
      */

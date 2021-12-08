@@ -14,21 +14,26 @@ import java.io.File;
  */
 public class MusicController {
     private static Clip clip;
+    private boolean musicPlaying; //Jenny
 
     /**
      * This method plays the music chosen for the background music in a loop
      */
     public void playMusic(String filename) {
-        try {
-            File file = new File(filename);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            clip.loop(clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!musicPlaying){ //Lade till if-sats. /Jenny       
+            try {
+                File file = new File(filename);
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                clip.loop(clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            musicPlaying = true;
         }
+        
     }
 
     /**
@@ -36,7 +41,11 @@ public class MusicController {
      * the settingsGUI or by closing the program
      */
     public void stopMusic() {
-        clip.stop();
+        if (musicPlaying){
+            clip.stop();
+            musicPlaying = false; // Jenny
+        }
+            
     }
 
 }
