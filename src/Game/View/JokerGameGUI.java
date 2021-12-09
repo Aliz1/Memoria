@@ -1,9 +1,10 @@
 package Game.View;
 
+import Game.Controller.Controller;
 import Game.Controller.multiplicationGame.CardDropTask;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,11 +37,14 @@ public class JokerGameGUI extends JFrame {
     private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo); 
     private JPanel pnlIcons;
 
+
+
     /**
      * Construct and initialize the GUI.
      */
     //Ali Changed the title from "JOKERROUND" in all instances to "JOKERROUND" when the players match two joker cards-
     //and "Single player" when the player is in singleplayer mode. 
+
     public JokerGameGUI(String title) {
         setupGamePanel();
         setupTypePanel();
@@ -49,6 +53,7 @@ public class JokerGameGUI extends JFrame {
         setupFinalPointsLabel();
         setupFrame(title);
         xButtonPressed();
+
     }
 
  
@@ -210,12 +215,11 @@ public class JokerGameGUI extends JFrame {
     }
     
     private class BackButtonListener implements java.awt.event.ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
-
-            
+            if (e.getSource() == btnBack) {
+                //TODO: Add body
+                }     
         }
         
     }
@@ -314,6 +318,24 @@ public class JokerGameGUI extends JFrame {
                 }
             }
         });
+    }
+
+/**
+ * Changes the gui setup depending on if it's multiplayer or singleplayer mode.
+ * @author Jenny
+ * @param mode Singleplayer or multiplayer
+ */
+
+
+    public void setMode(String mode) {
+        if (mode.equals("Singleplayer")){
+            btnBack.setVisible(true);
+
+        }
+        else if (mode.equals("Multiplayer")){
+            btnBack.setVisible(false);
+        }
+
     }
     
 }

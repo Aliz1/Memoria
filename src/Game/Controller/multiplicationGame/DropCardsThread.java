@@ -41,11 +41,12 @@ public class DropCardsThread implements Runnable {
     public DropCardsThread(Controller controller, String title) {
         this.controller = controller;
         jokerGameGui = new JokerGameGUI(title);
+        jokerGameGui.setMode("Multiplayer"); //Added by Jenny
         random = new Random();
         singlePlayer = false;
         fallingDropsList = new ArrayList<CardDropTask>(NBR_OF_PROBLEMS_IN_BUFFER);
         setupDropList(); // Setup list of drop threads.
-        setupSolutionsOnScreenList();                                                            
+        solutionsOnScreenList = new ArrayList<String>(); //Added by Jenny                                                          
         new Thread(this).start();
     }
 
@@ -60,20 +61,18 @@ public class DropCardsThread implements Runnable {
     public DropCardsThread(Controller controller, int problems, String title) {
         this.controller = controller;
         jokerGameGui = new JokerGameGUI(title);
+        jokerGameGui.setMode("Singleplayer"); //Added by Jenny
         random = new Random();
         this.NBR_OF_PROBLEMS_IN_BUFFER = problems;
         singlePlayer = true;
         fallingDropsList = new ArrayList<CardDropTask>(NBR_OF_PROBLEMS_IN_BUFFER);
         setupDropList();  // Setup list of drop threads.
-        setupSolutionsOnScreenList(); //Jenny                                                          
+        solutionsOnScreenList = new ArrayList<String>(); //Added by Jenny                                                          
         new Thread(this).start();
+        
     }
-/**
- * @author Jenny
- */
-    private void setupSolutionsOnScreenList() {
-        solutionsOnScreenList = new ArrayList<String>();
-    }
+
+
 
     /**
      * The running task of adding new CardDropTasks down the JokerGameGUI.
