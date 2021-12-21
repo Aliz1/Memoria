@@ -3,11 +3,10 @@ package Game.Controller.multiplicationGame;
 import Game.Controller.ClickController;
 import Game.Model.Card;
 import Game.View.JokerGameGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
-
+import Game.Controller.*;
 /**
  * Represents a multiplication problem to drop down on visible on a Card. The card drop is
  * to be passed as an argument to a Thread on a separate DropCardsThread task.
@@ -19,7 +18,6 @@ public class CardDropTask extends Card implements Runnable {
     private DropCardsThread dropCardsThread;
     private JokerGameGUI jokerGameGui;
     private ClickController clickController = new ClickController();
-
     private boolean alive = false;
     private int xPosition = new Random().nextInt(800);               // Problems appear random to this number.
     private int yPosition = 0;                                              // Origin of the problem appearing.
@@ -27,7 +25,7 @@ public class CardDropTask extends Card implements Runnable {
 
     private String problem;                                     // The question for the user to answer on this task.
     private String solved;                                      // The correct answer for the problem.
-
+    private Controller controller;
     /**
      * Constructs and initialize this Runnable.
      *
@@ -36,7 +34,8 @@ public class CardDropTask extends Card implements Runnable {
      * @param problem         the question for the user to answer on this task.
      * @param solved          the correct answer for the problem.
      */
-    public CardDropTask(JokerGameGUI jokerGameGui, DropCardsThread dropCardsThread, String problem, String solved) {
+    public CardDropTask(Controller controller,JokerGameGUI jokerGameGui, DropCardsThread dropCardsThread, String problem, String solved) {
+        this.controller = controller;
         this.jokerGameGui = jokerGameGui;
         this.dropCardsThread = dropCardsThread;
         this.problem = problem;
@@ -130,6 +129,8 @@ public class CardDropTask extends Card implements Runnable {
         }
     }
 
+
+
     /**
      * Update the game if a dropping card is matching user input.
      */
@@ -140,7 +141,7 @@ public class CardDropTask extends Card implements Runnable {
             displayMatch();
             alive = false;
             dropCardsThread.incrementPoints();
-            Thread.sleep(500);
+            Thread.sleep(50);// Karl Change the time for how long the correct answer is shown
             setVisible(false);
             dropCardsThread.incrementMatches();    // Synchronizes points updates
         }
@@ -152,12 +153,20 @@ public class CardDropTask extends Card implements Runnable {
     private void gameOver() {
         if (dropCardsThread.gotAllProblemsRight()) {
             clickController.click("music/JokerWin.wav");
+            
+            //TODO set highscore at game end
+            controller.getHighScore().addScore(controller.getUserName(), controller.getPointsJokerGame());
+
             jokerGameGui.addPointsText();
             dropCardsThread.gameOver();
             jokerGameGui.revalidate();
             jokerGameGui.repaint();
         } else if (yPosition > 409) {
             clickController.click("music/GameOver.wav");
+            
+            controller.getHighScore().addScore(controller.getUserName(), controller.getPointsJokerGame());
+            //TODO set highscore at game end
+            
             jokerGameGui.addPointsText();
             dropCardsThread.gameOver();
             jokerGameGui.revalidate();

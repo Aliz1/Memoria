@@ -20,6 +20,8 @@ import java.awt.event.WindowEvent;
 public class MenuGUI extends JFrame {
     private MusicController musicController = new MusicController();
     private Controller controller;
+    
+    
 
     private JPanel pnlMain = new JPanel();
     private JPanel pnlChoosePlayer = new JPanel();
@@ -34,6 +36,9 @@ public class MenuGUI extends JFrame {
     private ImageIcon iconGear = new ImageIcon("images/gear1.jpg");
     private ImageIcon iconOption = new ImageIcon("images/QMark4.jpg");
     private ImageIcon iconPi = new ImageIcon("images/pi.JPG");
+   
+    private ImageIcon icongHS = new ImageIcon("images/Highscore2.jpg");//karl
+    private JButton btnHighScore = new JButton(icongHS);//karl
 
     private JButton btnSettings = new JButton(iconGear);
     private JButton btnHelp = new JButton(iconOption);
@@ -60,7 +65,7 @@ public class MenuGUI extends JFrame {
     private JLabel lblGhostSettings = new JLabel();
     private JLabel lblPiHelp = new JLabel(iconPi);
     private JLabel lblGhostHelp = new JLabel();
-
+    
 
     /**
      * This method contains Memorias main menu GUI
@@ -96,7 +101,17 @@ public class MenuGUI extends JFrame {
         btnMultiPlayer.setBackground(Color.WHITE);
         pnlChoosePlayer.add(lblGhost5);
 
+
+
         pnlWest.add(pnlSettings).setPreferredSize(new Dimension(350, 90));
+
+        //karl
+        
+        pnlSettings.add(btnHighScore).setPreferredSize(new Dimension(88, 70));
+        btnHighScore.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        btnHighScore.setBackground(Color.WHITE);
+
+        
         pnlSettings.add(lblPiSettings);
         pnlSettings.add(lblGhostSettings);
         pnlSettings.setBackground(Color.WHITE);
@@ -105,6 +120,7 @@ public class MenuGUI extends JFrame {
         pnlSettings.add(lblPiHelp);
         pnlSettings.add(lblGhostHelp);
         btnSettings.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
         pnlSettings.add(btnHelp).setPreferredSize(new Dimension(88, 70));
         btnHelp.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         btnHelp.setBackground(Color.WHITE);
@@ -175,8 +191,44 @@ public class MenuGUI extends JFrame {
         btnMultiPlayer.addMouseListener(new MouseMultiPlayer());
         btnSettings.addMouseListener(new MouseSettings());
         btnHelp.addMouseListener(new MouseHelp());
+        btnHighScore.addMouseListener(new MouseHighScore());
     }
 
+    private class MouseHighScore implements MouseListener{
+        
+                public void mouseClicked(MouseEvent e) {
+            
+                    //checks if the boolean is true so you cant open multiple windows  //karl
+                    if (!controller.getWindowOpen()) {
+                        controller.setWindowOpen(true); 
+                        new HighscoresGUI(controller); 
+                       
+                    }
+        
+                    //Error message to show that you cant open another window if you currently have one open
+                    // else{
+                    //     JOptionPane.showMessageDialog(null, "Settings already open!",
+                    //     "Error!", JOptionPane.ERROR_MESSAGE);
+                    // }
+                    
+                }
+        
+                public void mousePressed(MouseEvent e) {
+                }
+        
+                public void mouseReleased(MouseEvent e) {
+                }
+        
+                public void mouseEntered(MouseEvent e) {
+                    //lblPiSettings.setVisible(true);
+                    //lblGhostSettings.setVisible(false);
+                }
+        
+                public void mouseExited(MouseEvent e) {
+                    //lblPiSettings.setVisible(false);
+                    //lblGhostSettings.setVisible(true);
+                }
+    }
 
     /**
      * This class contains the functions for the multi-player in the MenuGUI
@@ -216,7 +268,8 @@ public class MenuGUI extends JFrame {
         public void mouseClicked(MouseEvent e) {
             setVisible(false);
             dispose();
-            new DropCardsThread(controller, 29, "Singleplayer");
+            controller.startJokerGame();
+            
 
         }
 
@@ -243,9 +296,21 @@ public class MenuGUI extends JFrame {
      * @author Yasir Kakar
      */
     private class MouseSettings implements MouseListener {
+        //Boolean settingsOpen = true;
         public void mouseClicked(MouseEvent e) {
-            new SettingsGUI();
+            
+            //checks if the boolean is true so you cant open multiple windows  //karl
+            if (!controller.getWindowOpen()) {
+                controller.setWindowOpen(true); 
+                new SettingsGUI(controller); 
+            }
 
+            //Error message to show that you cant open another window if you currently have one open
+            // else{
+            //     JOptionPane.showMessageDialog(null, "Settings already open!",
+            //     "Error!", JOptionPane.ERROR_MESSAGE);
+            // }
+            
         }
 
         public void mousePressed(MouseEvent e) {
@@ -272,7 +337,18 @@ public class MenuGUI extends JFrame {
      */
     private class MouseHelp implements MouseListener {
         public void mouseClicked(MouseEvent e) {
-            new HelpGUI();
+            
+            //checks if the boolean is true so you cant open multiple windows  //karl
+            if (!controller.getWindowOpen()) {
+                controller.setWindowOpen(true); 
+                new HelpGUI(controller); 
+            }
+
+            //Error message to show that you cant open another window if you currently have one open
+            // else{
+            //     JOptionPane.showMessageDialog(null, "Settings already open!",
+            //     "Error!", JOptionPane.ERROR_MESSAGE);
+            // }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -312,4 +388,6 @@ public class MenuGUI extends JFrame {
             }
         });
     }
+
+
 }

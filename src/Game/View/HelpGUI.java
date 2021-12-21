@@ -1,9 +1,10 @@
 package Game.View;
-
+import Game.Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * This class contains everything concerning the HelpGUI
@@ -33,10 +34,12 @@ public class HelpGUI extends JFrame {
     private JButton btnBack[] = new JButton[8];
     private JButton btnOK[] = new JButton[8];
 
+    private Controller controller;
     /**
      * This constructor brings all the methods together for the HelpGUI
      */
-    public HelpGUI() {
+    public HelpGUI(Controller controller) {
+        this.controller = controller;
 
         setSize(700, 700);
         setLocationRelativeTo(null);
@@ -45,7 +48,9 @@ public class HelpGUI extends JFrame {
 
         container.setLayout(card);
         card.show(container, "1");
-
+        
+        XButtonPressed();
+        
         setLayouts();
         createButtons();
         addButtons();
@@ -371,6 +376,22 @@ public class HelpGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
+            controller.setWindowOpen(false);
         }
+    }
+
+        /**
+     * If you press the X in the upper right corner of the frame this will happen 
+     * //Karl
+     */
+    public void XButtonPressed() {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controller.setWindowOpen(false);
+            }
+        });
     }
 }

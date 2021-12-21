@@ -3,6 +3,7 @@ package Game.Model;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import Game.Controller.*;
 
 /**
  * This class handles the textfile highscores.txt.
@@ -17,8 +18,10 @@ public class Highscore {
     private int lowest; // Lowest score in the file.
     private ArrayList<Integer> scores; 
     private ArrayList<String> names;
+    private Controller controller;
 
-    public Highscore() {
+    public Highscore(Controller controller) {
+        this.controller = controller;
         MAX = 10;
         createLists();
         N = scores.size();
@@ -95,9 +98,9 @@ public class Highscore {
              * Otherwise, N is incremented. 
              */
             
-            if (N >= MAX) {
-                scores.remove(N - 1);
-                names.remove(N - 1);
+            if (N == MAX) {
+                scores.remove(N);
+                names.remove(N);
             }
             else N++;
             /**
@@ -158,11 +161,11 @@ public class Highscore {
 
     }
 
-    public static void main(String[] args) {
-        Highscore highscore = new Highscore();
-     //   highscore.addScore("S", 99);
+    // public static void main(String[] args) {
+    //     Highscore highscore = new Highscore();
+    //     highscore.addScore("S", 99);
     
 
-    }
+    // }
 
 }

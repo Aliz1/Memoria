@@ -1,12 +1,15 @@
 package Game.Controller;
 
+import Game.Controller.multiplicationGame.CardDropTask;
 import Game.Controller.multiplicationGame.DropCardsThread;
 import Game.Model.Card;
+import Game.Model.Highscore;
 import Game.Model.InfoReader;
 import Game.Model.User;
 import Game.View.BoardGUI;
 import Game.View.LogInGUI;
 import Game.View.MenuGUI;
+import Game.Model.Settings;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -18,7 +21,8 @@ import java.util.Arrays;
  * https://codereview.stackexchange.com/questions/85833/basic-memory-match-game-in-java
  * Stackexchange 20.04.14.
  *
- * @author Robert Rosencrantz, Adel Sabanovic, Sonja Peric, Yasir Kakar, Joakim Tell
+ * @author Robert Rosencrantz, Adel Sabanovic, Sonja Peric, Yasir Kakar, Joakim
+ *         Tell
  * @version 4.0
  */
 public class Controller {
@@ -32,22 +36,26 @@ public class Controller {
     private InfoReader infoReader;
     private Serialization serialize = new Serialization();
 
-    private Card[] pairOfCards = new Card[2];   // To handle the two cards for each round of pairings.
-    private User[] multiPlayer = new User[2];   // Keeps information of logged in users.
-    private boolean turnPlayer1 = true;         // Track which players turn it is.
+    private Card[] pairOfCards = new Card[2]; // To handle the two cards for each round of pairings.
+    private User[] multiPlayer = new User[2]; // Keeps information of logged in users.
+    private boolean turnPlayer1 = true; // Track which players turn it is.
 
+    private Highscore highscore = new Highscore(this);
+
+    private Settings settings = new Settings();
     /**
      * Construct the controller and initialize a login view.
      */
     public Controller() {
         logInPlayer1 = new LogInGUI(this, "Player One ");
         infoReader = new InfoReader("textfiles/infopanel.txt", "textfiles/symbol.txt");
-     //   musicController.playMusic("music/MenuMusic.wav");
+        // musicController.playMusic("music/MenuMusic.wav");
     }
 
     /**
      * Check if chosen card is first or second in a round.
-     * Delay and turn back cards two cards have been selected and if it is not a match.
+     * Delay and turn back cards two cards have been selected and if it is not a
+     * match.
      * Method is improved and adapted from:
      * https://codereview.stackexchange.com/questions/85833/basic-memory-match-game-in-java
      * Stackexchange 20.04.14.
@@ -67,7 +75,8 @@ public class Controller {
 
     /**
      * Check if a selected pair of cards are matching. Switch user if no match.
-     * User plays again and gets points if it is a match, or switch to joker game view
+     * User plays again and gets points if it is a match, or switch to joker game
+     * view
      * if joker symbols are matching.
      * Method is improved and adapted from:
      * https://codereview.stackexchange.com/questions/85833/basic-memory-match-game-in-java
@@ -87,8 +96,8 @@ public class Controller {
             if (secondSymbol.equals("images/Jo")) {
                 dropCardsThread = new DropCardsThread(this, title);
                 boardGUI.setVisible(false);
-               // musicController.stopMusic();
-               // musicController.playMusic("music/JokerRound.wav");
+                // musicController.stopMusic();
+                // musicController.playMusic("music/JokerRound.wav");
             } else {
                 clickController.click("music/Point.wav");
                 incrementScore(POINTS_PER_MATCH);
@@ -103,7 +112,7 @@ public class Controller {
             }
             switchPlayers();
         }
-        Arrays.fill(pairOfCards, null);                     // Empty the pair of cards after each round.
+        Arrays.fill(pairOfCards, null); // Empty the pair of cards after each round.
     }
 
     /**
@@ -118,7 +127,8 @@ public class Controller {
     }
 
     /**
-     * Checks if the game is over. Returns true when all cards are ultimately out of play.
+     * Checks if the game is over. Returns true when all cards are ultimately out of
+     * play.
      * Method is reused and adapted from:
      * https://codereview.stackexchange.com/questions/85833/basic-memory-match-game-in-java
      * Stackexchange 20.04.14.
@@ -138,47 +148,63 @@ public class Controller {
      * After called for user number two, view switch to memory game.
      */
     public boolean createUser() {
-        if (multiPlayer[0] == null) 
-        {
+        if (multiPlayer[0] == null) {
             String name = logInPlayer1.getTxtUsername().getText();
             String password = logInPlayer1.getTxtPassword().getText();
-           // multiPlayer[0] = new User(name, password);
-           Boolean userExists = serialize.userExists(name);
-            if (userExists) 
-            {
+            // multiPlayer[0] = new User(name, password);
+            Boolean userExists = serialize.userExists(name);
+            if (userExists) {
                 User existingUser = serialize.readObject(name);
-                if (existingUser.getPassword().equals(password)) 
-                {
+                if (existingUser.getPassword().equals(password)) {
                     multiPlayer[0] = existingUser;
-                    //JOptionPane.showMessageDialog(null, "Welcome back: " + name);
+                    // JOptionPane.showMessageDialog(null, "Welcome back: " + name);
                     menuGUI = new MenuGUI(this);
                     return true;
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "This username already exists.\nPlease try again with a new combination or another username. ");
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "This username already exists.\nPlease try again with a new combination or another username. ");
                     return false;
                 }
-            }
-            else
-            {
+            } else {
                 multiPlayer[0] = new User(name, password);
                 serialize.writeObject(multiPlayer[0]);
-              //  JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
+                // JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
                 menuGUI = new MenuGUI(this);
                 return true;
             }
-            
+
         }
-        else 
-        {
+        //Added to create user or find existing user in multiplayermode. //Karl
+        else {
             String name = logInPlayer2.getTxtUsername().getText();
-            multiPlayer[1] = new User(name,null);
-         //   JOptionPane.showMessageDialog(null, "Välkommen spelare 2: " + name);
-            boardGUI = new BoardGUI(this);
-            boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
-            boardGUI.getPnlPlayer2().setBorder(BorderFactory.createTitledBorder(multiPlayer[1].getUserName()));
-            return true;
+            String password = logInPlayer2.getTxtPassword().getText();
+            System.out.printf(password);
+
+            Boolean userExists = serialize.userExists(name);
+            if (userExists) {
+                User existingUser = serialize.readObject(name);
+                if (existingUser.getPassword().equals(password)) {
+                    multiPlayer[1] = existingUser;
+                    // JOptionPane.showMessageDialog(null, "Welcome back: " + name);
+                    boardGUI = new BoardGUI(this);
+                    boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
+                    boardGUI.getPnlPlayer2().setBorder(BorderFactory.createTitledBorder(multiPlayer[1].getUserName()));
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "This username already exists.\nPlease try again with a new combination or another username. ");
+                    return false;
+                }
+            } else {
+                multiPlayer[1] = new User(name, password);
+                serialize.writeObject(multiPlayer[1]);
+                // JOptionPane.showMessageDialog(null, "Välkommen spelare 1: " + name);
+                boardGUI = new BoardGUI(this);
+                boardGUI.getPnlPlayer1().setBorder(BorderFactory.createTitledBorder(multiPlayer[0].getUserName()));
+                boardGUI.getPnlPlayer2().setBorder(BorderFactory.createTitledBorder(multiPlayer[1].getUserName()));
+
+                return true;
+            }
         }
     }
 
@@ -198,7 +224,7 @@ public class Controller {
      */
     public void logInSecondPlayerView() {
         logInPlayer2 = new LogInGUI(this, "Player Two");
-        logInPlayer2.hidePasswordInput();
+        // logInPlayer2.hidePasswordInput();
     }
 
     /**
@@ -256,18 +282,19 @@ public class Controller {
 
     /**
      * Shows a panel of who won the game and asks if they want to play again.
-     * if yes a new boardGUI will appear, if no a new menuGUI will appear, if cancel the game will shut down.
+     * if yes a new boardGUI will appear, if no a new menuGUI will appear, if cancel
+     * the game will shut down.
      *
      * @param name       of who won
      * @param messageWin message depending on result
      */
     private void endOfGame(String name, String messageWin) {
-       // musicController.stopMusic();
+        // musicController.stopMusic();
         clickController.click("music/JokerWin.wav");
 
-        Object[] options = {"Avsluta", "Nej", "Ja"};
+        Object[] options = { "Avsluta", "Nej", "Ja" };
         int reply = JOptionPane.showOptionDialog(null, messageWin + " " + name
-                        + "\n" + "Vill ni spela igen?", "Spelomgång slut",
+                + "\n" + "Vill ni spela igen?", "Spelomgång slut",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
@@ -287,7 +314,7 @@ public class Controller {
         } else if (reply == JOptionPane.NO_OPTION) {
             boardGUI.setVisible(false);
             menuGUI = new MenuGUI(this);
-           // musicController.playMusic("music/MenuMusic.wav");
+            // musicController.playMusic("music/MenuMusic.wav");
         }
     }
 
@@ -305,4 +332,39 @@ public class Controller {
             boardGUI.setLblScore2(score);
         }
     }
+    //Karl
+    public void startJokerGame(){
+      dropCardsThread = new DropCardsThread(this, 29, "Singleplayer");
+    }
+    //karl
+    public void setWindowOpen(boolean windowOpen){
+        settings.setWindowOpen(windowOpen);
+        
+    }
+    //karl
+    public boolean getWindowOpen (){
+        return settings.getWindowOpen();
+    }
+
+    //karl
+    public void endBackButtonJokerGameSingelplayer() {
+        dropCardsThread.stopThread();
+    }
+    //karl
+    public String getUserName (){
+       return multiPlayer[0].getUserName();
+    }
+    //karl
+    public int getPointsJokerGame(){
+        return dropCardsThread.getPoints();
+    }
+ 
+    public Highscore getHighScore(){
+        return highscore;
+    }
+
+
+
+
+
 }

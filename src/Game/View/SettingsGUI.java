@@ -1,9 +1,11 @@
 package Game.View;
 
+import Game.Controller.Controller;
 import Game.Controller.MusicController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -42,10 +44,12 @@ public class SettingsGUI extends JFrame {
 
     private Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 20);
 
+    private Controller controller;
     /**
      * This constructor contains the functions for the settingsGUI
      */
-    public SettingsGUI() {
+    public SettingsGUI(Controller controller) {
+        this.controller = controller;
         frame.setSize(400, 300);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -64,11 +68,12 @@ public class SettingsGUI extends JFrame {
         btnOk.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         btnOff.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         btnOn.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
+        XButtonPressed();
         addContents();
         addListeners();
         setBoundsForContents();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        
     }
 
     /**
@@ -193,6 +198,7 @@ public class SettingsGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
+            controller.setWindowOpen(false);  //karl
         }
     }
 
@@ -212,4 +218,19 @@ public class SettingsGUI extends JFrame {
             musicController.stopMusic();
         }
     }
+    /**
+     * If you press the X in the upper right corner of the frame this will happen 
+     * //Karl
+     */
+    public void XButtonPressed() {
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controller.setWindowOpen(false);
+            }
+        });
+    }
+    
 }

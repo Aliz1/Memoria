@@ -94,6 +94,7 @@ public class LogInGUI extends JFrame {
      */
     private void listeners() {
         txtUsername.addKeyListener(new LimitUsername());
+        txtUsername.addKeyListener(new Listener()); //karl
         btnLogin.addActionListener(new Listener());
         txtUsername.addFocusListener(new FocusUsername());
         txtPassword.addFocusListener(new FocusPassword());

@@ -327,7 +327,16 @@ public class BoardGUI extends JFrame {
      */
     private class MouseSettings implements MouseListener {
         public void mouseClicked(MouseEvent e) {
-            new SettingsGUI();
+            
+            if (!controller.getWindowOpen()) {
+                controller.setWindowOpen(true); 
+                new SettingsGUI(controller); 
+            }
+                       //Error message to show that you cant open another window if you currently have one open
+            // else{
+            //     JOptionPane.showMessageDialog(null, "Settings already open!",
+            //     "Error!", JOptionPane.ERROR_MESSAGE);
+            // }
 
         }
 
@@ -354,7 +363,15 @@ public class BoardGUI extends JFrame {
      */
     private class MouseHelp implements MouseListener {
         public void mouseClicked(MouseEvent e) {
-            new HelpGUI();
+            if (!controller.getWindowOpen()) {
+                controller.setWindowOpen(true); 
+                new HelpGUI(controller); 
+            }
+                       //Error message to show that you cant open another window if you currently have one open
+            // else{
+            //     JOptionPane.showMessageDialog(null, "Settings already open!",
+            //     "Error!", JOptionPane.ERROR_MESSAGE);
+            // }
         }
 
         public void mousePressed(MouseEvent e) {

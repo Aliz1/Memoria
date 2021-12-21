@@ -2,9 +2,9 @@ package Game.View;
 
 import Game.Controller.Controller;
 import Game.Controller.multiplicationGame.CardDropTask;
+import Game.Controller.multiplicationGame.DropCardsThread;
 
 import javax.swing.*;
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,8 +14,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Contains the main parts of the joker bonus round and/or the single player game.
- * The GUI paints up a multiplication game where card drops are falling down the screen.
+ * Contains the main parts of the joker bonus round and/or the single player
+ * game.
+ * The GUI paints up a multiplication game where card drops are falling down the
+ * screen.
  *
  * @author Robert Rosencrantz
  * @version 4.0
@@ -31,21 +33,23 @@ public class JokerGameGUI extends JFrame {
     private JLabel lblFinalPoints;
     private String answerTyped = "";
 
-    private ImageIcon iconBack = new ImageIcon("images/back.jpg"); //Jenny: copypastade följande rader från boardgame.gui
+    private ImageIcon iconBack = new ImageIcon("images/back.jpg"); // Jenny: copypastade följande rader från
+                                                                   // boardgame.gui
     private JButton btnBack = new JButton(iconBack);
     private ImageIcon iconMemoriaLogo = new ImageIcon("images/mem2.jpg");
-    private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo); 
+    private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo);
     private JPanel pnlIcons;
-
-
+    private Controller controller;
 
     /**
      * Construct and initialize the GUI.
      */
-    //Ali Changed the title from "JOKERROUND" in all instances to "JOKERROUND" when the players match two joker cards-
-    //and "Single player" when the player is in singleplayer mode. 
+    // Ali Changed the title from "JOKERROUND" in all instances to "JOKERROUND" when
+    // the players match two joker cards-
+    // and "Single player" when the player is in singleplayer mode.
 
-    public JokerGameGUI(String title) {
+    public JokerGameGUI(String title, Controller controller) {
+        this.controller = controller; // karl
         setupGamePanel();
         setupTypePanel();
         setupMainPanel();
@@ -55,9 +59,6 @@ public class JokerGameGUI extends JFrame {
         xButtonPressed();
 
     }
-
- 
-
 
     /**
      * Updates the GUI by adding a new card drop on the game panel.
@@ -130,7 +131,7 @@ public class JokerGameGUI extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             char c = e.getKeyChar();
-            if ("1234567890".contains(String.valueOf(c))) {     // Only react to numeric values.
+            if ("1234567890".contains(String.valueOf(c))) { // Only react to numeric values.
                 if (answerTyped.length() == 1) {
                     answerTyped += String.valueOf(c);
                 } else {
@@ -154,12 +155,12 @@ public class JokerGameGUI extends JFrame {
         setTitle(title);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(pnlMain);
-        addKeyListener(new TypeListener());     // Listens to numeric keyboard input.
+        addKeyListener(new TypeListener()); // Listens to numeric keyboard input.
         setFocusable(true);
         setResizable(false);
         pack();
         setVisible(true);
-        
+
     }
 
     /**
@@ -174,8 +175,7 @@ public class JokerGameGUI extends JFrame {
         JPanel pnlButtonAndIcon = new JPanel();
         pnlButtonAndIcon.setBackground(Color.white);
         btnBack.setBackground(Color.white);
-        btnBack.addActionListener(new BackButtonListener() 
-);
+        btnBack.addActionListener(new BackButtonListener());
         pnlButtonAndIcon.add(btnBack, LEFT_ALIGNMENT);
         pnlButtonAndIcon.add(lblMemoriaLogo, CENTER_ALIGNMENT);
         pnlNorth.setBackground(Color.white);
@@ -183,7 +183,7 @@ public class JokerGameGUI extends JFrame {
         pnlNorth.add(pnlTyping, BorderLayout.CENTER);
         pnlMain.add(pnlNorth, BorderLayout.NORTH);
         pnlMain.add(pnlGame, BorderLayout.CENTER);
-        
+
     }
 
     /**
@@ -197,7 +197,6 @@ public class JokerGameGUI extends JFrame {
         lblLogo.setBackground(Color.WHITE);
         setupTextFieldPoints();
         pnlTyping.add(lblLogo, BorderLayout.WEST);
-
 
         JPanel pnlCenterTyping = new JPanel(new BorderLayout());
         pnlCenterTyping.setBackground(Color.WHITE);
@@ -213,15 +212,17 @@ public class JokerGameGUI extends JFrame {
         pnlTyping.add(pnlCenterTyping, BorderLayout.CENTER);
         pnlTyping.add(textFieldPoints, BorderLayout.EAST);
     }
-    
+
     private class BackButtonListener implements java.awt.event.ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == btnBack) {
-                //TODO: Add body
-                }     
+                controller.endBackButtonJokerGameSingelplayer();
+                dispose();
+                controller.switchToMenu();
+            }
         }
-        
+
     }
 
     /**
@@ -241,7 +242,7 @@ public class JokerGameGUI extends JFrame {
         textFieldPoints.setBackground(Color.WHITE);
         textFieldPoints.setForeground(Color.BLACK);
         textFieldPoints.setEditable(false);
-        
+
         textFieldPoints.setFocusable(false);
         textFieldPoints.setOpaque(true);
         textFieldPoints.setBorder(null);
@@ -258,7 +259,7 @@ public class JokerGameGUI extends JFrame {
         lblFinalPoints.setHorizontalAlignment(SwingConstants.CENTER);
         lblFinalPoints.setVerticalAlignment(SwingConstants.CENTER);
         lblFinalPoints.setSize(1000, 500);
-        lblFinalPoints.setFont(new Font("monospaced", Font.BOLD, 100));           // Enlarge font size
+        lblFinalPoints.setFont(new Font("monospaced", Font.BOLD, 100)); // Enlarge font size
         lblFinalPoints.setForeground(Color.BLACK);
         lblFinalPoints.setVisible(false);
         pnlGame.add(lblFinalPoints);
@@ -290,7 +291,7 @@ public class JokerGameGUI extends JFrame {
             public void run() {
                 lblTwoPoints.setVisible(true);
                 try {
-                    sleep(2000);
+                    sleep(100);   //was 2000 changes how long the +2ponts i shown in jokergame
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -320,22 +321,21 @@ public class JokerGameGUI extends JFrame {
         });
     }
 
-/**
- * Changes the gui setup depending on if it's multiplayer or singleplayer mode.
- * @author Jenny
- * @param mode Singleplayer or multiplayer
- */
-
+    /**
+     * Changes the gui setup depending on if it's multiplayer or singleplayer mode.
+     * 
+     * @author Jenny
+     * @param mode Singleplayer or multiplayer
+     */
 
     public void setMode(String mode) {
-        if (mode.equals("Singleplayer")){
+        if (mode.equals("Singleplayer")) {
             btnBack.setVisible(true);
 
-        }
-        else if (mode.equals("Multiplayer")){
+        } else if (mode.equals("Multiplayer")) {
             btnBack.setVisible(false);
         }
 
     }
-    
+
 }

@@ -9,6 +9,27 @@
             "name": "Launch HighscoresGUI",
             "request": "launch",
             "mainClass": "Game.View.HighscoresGUI",
+            "projectName": "Memoria_dfebe13a"
+        },
+        {
+            "type": "java",
+            "name": "Launch Highscore",
+            "request": "launch",
+            "mainClass": "Game.Model.Highscore",
+            "projectName": "Memoria_dfebe13a"
+        },
+        {
+            "type": "java",
+            "name": "Launch Game",
+            "request": "launch",
+            "mainClass": "Game.Controller.Game",
+            "projectName": "Memoria_dfebe13a"
+        },
+        {
+            "type": "java",
+            "name": "Launch HighscoresGUI",
+            "request": "launch",
+            "mainClass": "Game.View.HighscoresGUI",
             "projectName": "Memoria_3d867d56"
         },
         {

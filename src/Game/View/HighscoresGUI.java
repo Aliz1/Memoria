@@ -1,8 +1,10 @@
 package Game.View;
-
 import javax.swing.*;
 import Game.Model.Highscore;
 import java.awt.*;
+import java.awt.event.*;
+
+import Game.Controller.Controller;
 /**
  *
  * Class that handles the view of the highscores.
@@ -20,11 +22,16 @@ public class HighscoresGUI extends JPanel {
     private JLabel highscoreLabel = new JLabel(iconHighscore);
     private JPanel northPanel = new JPanel();
     private JPanel centerPanel = new JPanel();
+    private JFrame frame;
+    private Controller controller;
+    
 
 
 
 
-    public HighscoresGUI() {
+    public HighscoresGUI(Controller controller) {
+        this.controller = controller;
+
         setLayout(new BorderLayout());
         centerText.setFont(new Font("Serif", Font.PLAIN, 26));
         centerText.setEditable(false);
@@ -40,7 +47,10 @@ public class HighscoresGUI extends JPanel {
         add(northPanel, BorderLayout.NORTH);
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createMatteBorder(25, 25, 50, 25, Color.WHITE));
-
+        
+        setText(controller.getHighScore().toString());
+        showPanelInFrame();
+        XButtonPressed();
     }
 
     public void setText(String text) {
@@ -48,7 +58,7 @@ public class HighscoresGUI extends JPanel {
     }
 
     private void showPanelInFrame() {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setSize(new Dimension(400, 600));
         frame.setBackground(Color.white);
         frame.setVisible(true);
@@ -59,11 +69,15 @@ public class HighscoresGUI extends JPanel {
 
     }
 
-    public static void main(String[] args) {
-        HighscoresGUI gui = new HighscoresGUI();
-        Highscore hs = new Highscore();
-        gui.setText(hs.toString());
-        gui.showPanelInFrame();
+    public void XButtonPressed() {
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controller.setWindowOpen(false);
+            }
+        });
     }
 
 }
