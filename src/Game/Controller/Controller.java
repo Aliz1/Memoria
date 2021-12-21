@@ -178,9 +178,8 @@ public class Controller {
         else {
             String name = logInPlayer2.getTxtUsername().getText();
             String password = logInPlayer2.getTxtPassword().getText();
-            System.out.printf(password);
-
             Boolean userExists = serialize.userExists(name);
+            
             if (userExists) {
                 User existingUser = serialize.readObject(name);
                 if (existingUser.getPassword().equals(password)) {
@@ -358,7 +357,7 @@ public class Controller {
     public int getPointsJokerGame(){
         return dropCardsThread.getPoints();
     }
- 
+    //karl
     public Highscore getHighScore(){
         return highscore;
     }

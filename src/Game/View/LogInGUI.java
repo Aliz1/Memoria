@@ -1,7 +1,6 @@
 package Game.View;
 
 import Game.Controller.Controller;
-
 import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 import java.awt.*;
@@ -17,24 +16,17 @@ public class LogInGUI extends JFrame {
     private Controller controller;
     private ImageIcon welcomeLogo = new ImageIcon("images/MemoriaWelcome.PNG");
     private ImageIcon imgbtn = new ImageIcon("images/ok.PNG");
-
     private JPanel pnlMain = new JPanel();
     private boolean FocusUsername = false;
     private boolean FocusPassword = false;
-
-    ImageIcon piLogo = new ImageIcon("images/pi.jpg");
-
+    private ImageIcon piLogo = new ImageIcon("images/pi.jpg");
     private JLabel lblGame = new JLabel(welcomeLogo);
-
     private JLabel lblUsername = new JLabel("Användarnamn");
     private JLabel lblPassword = new JLabel("Password");
     private JLabel lblPi = new JLabel(piLogo);
-
     private JTextField txtUsername = new JTextField("Användarnamn (3-10 tecken)");
     private JPasswordField txtPassword = new JPasswordField("Password");
-
     private Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 20);
-
     private JButton btnLogin = new JButton(imgbtn);
 
     /**
@@ -42,19 +34,14 @@ public class LogInGUI extends JFrame {
      */
     public LogInGUI(Controller controller, String name) {
         this.controller = controller;
-
         setSize(380, 255);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
         add(pnlMain);
         pnlMain.setBackground(Color.WHITE);
-
         lblGame.setFont(myFont);
-
         pnlMain.setLayout(null);
-        
-
         lblGame.setBounds(40, 20, 300, 50);
         lblUsername.setBounds(50, 60, 100, 100);
         lblPassword.setBounds(50, 90, 100, 100);
@@ -62,30 +49,24 @@ public class LogInGUI extends JFrame {
         txtPassword.setBounds(120, 130, 165, 25);
         btnLogin.setBounds(168, 155, 59, 38);
         lblPi.setBounds(128, 150, 33, 40);
-
         lblPi.setVisible(false);
-
         lblUsername.setText(name);
-
         txtUsername.setForeground(Color.GRAY);
-        //Ali
+        // Ali
         txtPassword.setForeground(Color.GRAY);
-
         pnlMain.add(lblGame);
         pnlMain.add(lblUsername);
         pnlMain.add(lblPassword);
         pnlMain.add(txtUsername);
-        //Ali
+        // Ali
         pnlMain.add(txtPassword);
         pnlMain.add(btnLogin);
         pnlMain.add(lblPi);
-
         btnLogin.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
         listeners();
     }
-    public void hidePasswordInput()
-    {
+
+    public void hidePasswordInput() {
         txtPassword.setVisible(false);
     }
 
@@ -94,13 +75,12 @@ public class LogInGUI extends JFrame {
      */
     private void listeners() {
         txtUsername.addKeyListener(new LimitUsername());
-        txtUsername.addKeyListener(new Listener()); //karl
+        txtUsername.addKeyListener(new Listener()); // karl
         btnLogin.addActionListener(new Listener());
         txtUsername.addFocusListener(new FocusUsername());
         txtPassword.addFocusListener(new FocusPassword());
         btnLogin.addMouseListener(new MouseSubmit());
         txtPassword.addKeyListener(new Listener());
-        
 
     }
 
@@ -113,12 +93,11 @@ public class LogInGUI extends JFrame {
 
         @Override
         public void focusGained(FocusEvent e) {
-            if (!FocusUsername) 
-            {
+            if (!FocusUsername) {
                 txtUsername.setText(null);
                 txtUsername.setForeground(Color.BLACK);
             }
-            
+
             FocusUsername = true;
         }
 
@@ -127,16 +106,16 @@ public class LogInGUI extends JFrame {
 
         }
     }
+
     private class FocusPassword implements FocusListener {
 
         @Override
         public void focusGained(FocusEvent e) {
-            if (!FocusPassword) 
-            {
+            if (!FocusPassword) {
                 txtPassword.setText(null);
                 txtPassword.setForeground(Color.BLACK);
             }
-            
+
             FocusPassword = true;
         }
 
@@ -149,8 +128,7 @@ public class LogInGUI extends JFrame {
     /**
      * An inner class which limits how long a username can be
      */
-    private class LimitUsername implements KeyListener 
-    {
+    private class LimitUsername implements KeyListener {
 
         @Override
         public void keyTyped(KeyEvent e) {
@@ -197,7 +175,6 @@ public class LogInGUI extends JFrame {
 
         }
     }
-    
 
     /**
      * Listener that controls the length of the username.
@@ -209,54 +186,51 @@ public class LogInGUI extends JFrame {
         /**
          * 
          */
-        public void handleLogin(){ //Flyttade in koden nedan till en ny metod /Jenny
+        public void handleLogin() { // Flyttade in koden nedan till en ny metod /Jenny
             if ((txtUsername.getText().trim().length() <= 10) && (txtUsername.getText().trim().length() >= 3)) {
-    
+
                 loginSuccessfull = controller.createUser();
-    
-                if (loginSuccessfull) 
-                {
+
+                if (loginSuccessfull) {
                     setVisible(false);
                     dispose();
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Ogiltigt användarnamn");
             }
-    
+
         }
-        
+
         public void actionPerformed(ActionEvent e) {
-           handleLogin();
+            handleLogin();
         }
+
         @Override
         public void keyTyped(KeyEvent e) {
-            // TODO Auto-generated method stub
-            
+
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER){
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 handleLogin();
-            }        
+            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            // TODO Auto-generated method stub
-            
+
         }
-       
+
     }
-  
 
     public JTextField getTxtUsername() {
         return txtUsername;
     }
-    //Ali 
-    public JTextField getTxtPassword()
-    {
+
+    // Ali
+    public JTextField getTxtPassword() {
         return txtPassword;
     }
 

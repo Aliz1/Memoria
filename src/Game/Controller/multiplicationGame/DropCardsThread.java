@@ -5,7 +5,6 @@ import Game.Controller.Controller;
 import Game.Controller.MusicController;
 import Game.Model.NumbersScanner;
 import Game.View.JokerGameGUI;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,9 +21,7 @@ public class DropCardsThread implements Runnable {
     private ClickController clickController = new ClickController();
     private Controller controller;
     private JokerGameGUI jokerGameGui;
-
     private Random random;
-
     private ArrayList<CardDropTask> fallingDropsList; // Stores drop threads.
     private boolean gameRunning = true; // Set to false to stop thread.
     private int points = 0; // Store current score.
@@ -32,7 +29,6 @@ public class DropCardsThread implements Runnable {
     private int NBR_OF_PROBLEMS_IN_BUFFER = 10;
     private int dropSpeed = 30;
     private boolean singlePlayer;
-
     private ArrayList<String> solutionsOnScreenList; // Jenny
 
     /**
@@ -187,8 +183,7 @@ public class DropCardsThread implements Runnable {
                     if (singlePlayer) {
                         dropSpeed--;
                     }
-                    jokerGameGui.addDropToGamePanel(
-                            fallingDropsList.get(problemsDropped)); // Put the new drop on rain thread.
+                    jokerGameGui.addDropToGamePanel(fallingDropsList.get(problemsDropped)); // Put the new drop on rain thread.
                     problemsDropped++;
                 }
 
@@ -232,7 +227,7 @@ public class DropCardsThread implements Runnable {
         for (int i = 0; i < NBR_OF_PROBLEMS_IN_BUFFER; i++) { // Fill upp the falling drops list with Runnables.
             String problem = problemsBuffer.remove(0);
             String solved = solvedBuffer.remove(0);
-            CardDropTask cardDropTask = new CardDropTask(controller,jokerGameGui, this, problem, solved);
+            CardDropTask cardDropTask = new CardDropTask(controller, jokerGameGui, this, problem, solved);
             fallingDropsList.add(cardDropTask);
         }
     }

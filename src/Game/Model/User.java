@@ -5,11 +5,11 @@ import java.io.Serializable;
 /**
  * A representation of a logged in user. The user has user name and a score.
  *
- * @author Robert Rosencrantz, Adel Sabanovic, Sonja Peric, Yasir Kakar, Joakim Tell
+ * @author Robert Rosencrantz, Adel Sabanovic, Sonja Peric, Yasir Kakar, Joakim
+ *         Tell
  * @version 4.0
  */
-public class User implements Serializable
-{
+public class User implements Serializable {
     private String userName;
     private String password;
     private int totalPoints;
@@ -19,7 +19,7 @@ public class User implements Serializable
      * Constructor
      *
      * @param userName User input
-     * @param password User password 
+     * @param password User password
      */
     public User(String userName, String password) {
         this.userName = userName;
@@ -30,8 +30,7 @@ public class User implements Serializable
         return userName;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 

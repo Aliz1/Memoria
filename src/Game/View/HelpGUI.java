@@ -13,7 +13,6 @@ import java.awt.event.*;
  * @version 4.0
  */
 public class HelpGUI extends JFrame {
-
     private CardLayout card = new CardLayout();
     private JPanel container = new JPanel();
     private JPanel panel1 = new JPanel();
@@ -24,33 +23,25 @@ public class HelpGUI extends JFrame {
     private JPanel panel6 = new JPanel();
     private JPanel panel7 = new JPanel();
     private JPanel panel8 = new JPanel();
-
     private ImageIcon next = new ImageIcon("images/fwdButton.png");
     private ImageIcon back = new ImageIcon("images/backButton.png");
     private ImageIcon ok = new ImageIcon("images/okButton.png");
-
-
     private JButton btnNext[] = new JButton[8];
     private JButton btnBack[] = new JButton[8];
     private JButton btnOK[] = new JButton[8];
-
     private Controller controller;
     /**
      * This constructor brings all the methods together for the HelpGUI
      */
     public HelpGUI(Controller controller) {
         this.controller = controller;
-
         setSize(700, 700);
         setLocationRelativeTo(null);
         setVisible(true);
         add(container);
-
         container.setLayout(card);
         card.show(container, "1");
-        
         XButtonPressed();
-        
         setLayouts();
         createButtons();
         addButtons();
@@ -384,7 +375,7 @@ public class HelpGUI extends JFrame {
      * If you press the X in the upper right corner of the frame this will happen 
      * //Karl
      */
-    public void XButtonPressed() {
+    private void XButtonPressed() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {

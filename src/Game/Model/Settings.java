@@ -1,8 +1,5 @@
 package Game.Model;
 
-
-
-
 /**
  *Handles the settings and help gui so you can only have one window open at the time.
  * @author Karl

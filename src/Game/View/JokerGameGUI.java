@@ -3,9 +3,7 @@ package Game.View;
 import Game.Controller.Controller;
 import Game.Controller.multiplicationGame.CardDropTask;
 import Game.Controller.multiplicationGame.DropCardsThread;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -32,9 +30,7 @@ public class JokerGameGUI extends JFrame {
     private JLabel lblTwoPoints;
     private JLabel lblFinalPoints;
     private String answerTyped = "";
-
-    private ImageIcon iconBack = new ImageIcon("images/back.jpg"); // Jenny: copypastade följande rader från
-                                                                   // boardgame.gui
+    private ImageIcon iconBack = new ImageIcon("images/back.jpg"); // Jenny: copypastade följande rader från boardgame.gui
     private JButton btnBack = new JButton(iconBack);
     private ImageIcon iconMemoriaLogo = new ImageIcon("images/mem2.jpg");
     private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo);
@@ -242,7 +238,6 @@ public class JokerGameGUI extends JFrame {
         textFieldPoints.setBackground(Color.WHITE);
         textFieldPoints.setForeground(Color.BLACK);
         textFieldPoints.setEditable(false);
-
         textFieldPoints.setFocusable(false);
         textFieldPoints.setOpaque(true);
         textFieldPoints.setBorder(null);
@@ -291,7 +286,7 @@ public class JokerGameGUI extends JFrame {
             public void run() {
                 lblTwoPoints.setVisible(true);
                 try {
-                    sleep(100);   //was 2000 changes how long the +2ponts i shown in jokergame
+                    sleep(100); // Karl how long the it shows that you got two points
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

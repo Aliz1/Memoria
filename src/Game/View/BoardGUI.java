@@ -82,8 +82,8 @@ public class BoardGUI extends JFrame {
      */
     public BoardGUI(Controller controller) {
         this.controller = controller;
-       // musicController.stopMusic();
-       // musicController.playMusic("music/GameMusic.wav");
+        // musicController.stopMusic();
+        // musicController.playMusic("music/GameMusic.wav");
         setupFrame();
         setupComponentsSizes();
         setupComponents();
@@ -119,7 +119,7 @@ public class BoardGUI extends JFrame {
         pnlEast.add(pnlPlayer2);
         pnlEast.add(txtInfoArea);
         pnlEast.add(lblGhost6);
-        //pnlEast.add(lblGhost5);
+        // pnlEast.add(lblGhost5);
         pnlEast.add(lblPi);
         lblPi.setVisible(false);
         pnlEast.add(lblEmptyLogo);
@@ -163,7 +163,7 @@ public class BoardGUI extends JFrame {
         lblBlueStripe2.setPreferredSize(new Dimension(430, 20));
         lblBlueStripe3.setPreferredSize(new Dimension(125, 20));
         lblBlueStripe4.setPreferredSize(new Dimension(125, 20));
-        //lblGhost5.setPreferredSize(new Dimension(240, 22));
+        // lblGhost5.setPreferredSize(new Dimension(240, 22));
         lblGhost6.setPreferredSize(new Dimension(240, 65));
         lblBlueStripe5.setPreferredSize(new Dimension(125, 20));
         lblBlueStripe6.setPreferredSize(new Dimension(125, 20));
@@ -238,9 +238,9 @@ public class BoardGUI extends JFrame {
         cards = new ArrayList<Card>();
         ArrayList<String> cardSymbolPaths;
 
-        cardSymbolPaths = new CardDeck().addSymbols();  // Add images to cards.
-        Collections.shuffle(cardSymbolPaths);           // Randomize symbols.
-        for (String symbol : cardSymbolPaths) {         // Setup 24 cards.
+        cardSymbolPaths = new CardDeck().addSymbols(); // Add images to cards.
+        Collections.shuffle(cardSymbolPaths); // Randomize symbols.
+        for (String symbol : cardSymbolPaths) { // Setup 24 cards.
             Card card = new Card();
             card.setPathSymbol(symbol);
             card.addActionListener(new ActionListener() {
@@ -248,21 +248,21 @@ public class BoardGUI extends JFrame {
                     controller.doTurn(card);
                 }
             });
-            card.hideSymbol(65, 83);       // Turn backside up.
+            card.hideSymbol(65, 83); // Turn backside up.
             cards.add(card);
         }
 
         setupTimer();
-        for (Card card : cards) {                       // Add 24 cards to board.
+        for (Card card : cards) { // Add 24 cards to board.
             pnlCardsLayout.add(card);
         }
         revalidate();
         repaint();
     }
 
-
     /**
-     * Sets up a timer with a delay after each pairing in the game, before the cards are turned back.
+     * Sets up a timer with a delay after each pairing in the game, before the cards
+     * are turned back.
      */
     private void setupTimer() {
         timer = new Timer(1500, new ActionListener() {
@@ -322,22 +322,17 @@ public class BoardGUI extends JFrame {
     }
 
     /**
-     * An inner class that makes it so that a pi logo shows next to the button the mouse is hovering over
+     * An inner class that makes it so that a pi logo shows next to the button the
+     * mouse is hovering over
      * it and shows the settings menu if clicked
      */
     private class MouseSettings implements MouseListener {
         public void mouseClicked(MouseEvent e) {
-            
-            if (!controller.getWindowOpen()) {
-                controller.setWindowOpen(true); 
-                new SettingsGUI(controller); 
-            }
-                       //Error message to show that you cant open another window if you currently have one open
-            // else{
-            //     JOptionPane.showMessageDialog(null, "Settings already open!",
-            //     "Error!", JOptionPane.ERROR_MESSAGE);
-            // }
 
+            if (!controller.getWindowOpen()) {
+                controller.setWindowOpen(true);
+                new SettingsGUI(controller);
+            }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -358,20 +353,16 @@ public class BoardGUI extends JFrame {
     }
 
     /**
-     * An inner class that makes it so that a pi logo shows next to the button the mouse is hovering over
+     * An inner class that makes it so that a pi logo shows next to the button the
+     * mouse is hovering over
      * it and shows the help menu if clicked
      */
     private class MouseHelp implements MouseListener {
         public void mouseClicked(MouseEvent e) {
             if (!controller.getWindowOpen()) {
-                controller.setWindowOpen(true); 
-                new HelpGUI(controller); 
+                controller.setWindowOpen(true);
+                new HelpGUI(controller);
             }
-                       //Error message to show that you cant open another window if you currently have one open
-            // else{
-            //     JOptionPane.showMessageDialog(null, "Settings already open!",
-            //     "Error!", JOptionPane.ERROR_MESSAGE);
-            // }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -401,8 +392,9 @@ public class BoardGUI extends JFrame {
             if (e.getSource() == btnBack) {
                 dispose();
                 controller.switchToMenu();
-                //Removed the stop music since our 3 music files could not be uploaded to github - Ali
-               // musicController.stopMusic();
+                // Removed the stop music since our 3 music files could not be uploaded to
+                // github - Ali
+                // musicController.stopMusic();
             }
         }
     }
@@ -410,7 +402,7 @@ public class BoardGUI extends JFrame {
     /**
      * If X on frame i pressed asks the user if the want to close the program.
      */
-    public void XButtonPressed() {
+    private void XButtonPressed() {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         this.addWindowListener(new WindowAdapter() {

@@ -1,13 +1,16 @@
 package Game.View;
+
 import javax.swing.*;
 import Game.Model.Highscore;
 import java.awt.*;
 import java.awt.event.*;
 
 import Game.Controller.Controller;
+
 /**
  *
  * Class that handles the view of the highscores.
+ * 
  * @author Jenny
  * @version 1.0
  * @since 2021-12-08
@@ -24,21 +27,15 @@ public class HighscoresGUI extends JPanel {
     private JPanel centerPanel = new JPanel();
     private JFrame frame;
     private Controller controller;
-    
-
-
-
 
     public HighscoresGUI(Controller controller) {
         this.controller = controller;
-
         setLayout(new BorderLayout());
         centerText.setFont(new Font("Serif", Font.PLAIN, 26));
         centerText.setEditable(false);
         centerPanel.add(highscoreLabel, BorderLayout.NORTH);
         centerPanel.add(centerText, BorderLayout.CENTER);
         centerPanel.setBackground(Color.WHITE);
-    
         northPanel.setPreferredSize(new Dimension(400, 100));
         northPanel.add(memoriaLabel, BorderLayout.NORTH);
         northPanel.setBackground(Color.WHITE);
@@ -47,7 +44,6 @@ public class HighscoresGUI extends JPanel {
         add(northPanel, BorderLayout.NORTH);
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createMatteBorder(25, 25, 50, 25, Color.WHITE));
-        
         setText(controller.getHighScore().toString());
         showPanelInFrame();
         XButtonPressed();
@@ -65,11 +61,10 @@ public class HighscoresGUI extends JPanel {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(true);
         frame.add(this);
-        
 
     }
 
-    public void XButtonPressed() {
+    private void XButtonPressed() {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.addWindowListener(new WindowAdapter() {

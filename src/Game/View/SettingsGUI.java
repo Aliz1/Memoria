@@ -2,7 +2,6 @@ package Game.View;
 
 import Game.Controller.Controller;
 import Game.Controller.MusicController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,30 +20,24 @@ import java.awt.event.MouseListener;
 public class SettingsGUI extends JFrame {
     private MusicController musicController = new MusicController();
     private JFrame frame = new JFrame();
-
     private JPanel pnlMain = new JPanel();
-
     private ImageIcon inställningarLogo = new ImageIcon("images/settings.PNG");
     private ImageIcon iconMusic = new ImageIcon("images/music.PNG");
     private ImageIcon iconOn = new ImageIcon("images/on.PNG");
     private ImageIcon iconOff = new ImageIcon("images/Off.PNG");
     private ImageIcon iconOk = new ImageIcon("images/ok.PNG");
     private ImageIcon iconPi = new ImageIcon("images/pi.jpg");
-
-
     private JButton btnOn = new JButton(iconOn);
     private JButton btnOff = new JButton(iconOff);
     private JButton btnOk = new JButton(iconOk);
-
     private JLabel lblSettings = new JLabel(inställningarLogo);
     private JLabel lblMusic = new JLabel(iconMusic);
     private JLabel lblPiOn = new JLabel(iconPi);
     private JLabel lblPiOff = new JLabel(iconPi);
     private JLabel lblPi3Ok = new JLabel(iconPi);
-
     private Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 20);
-
     private Controller controller;
+
     /**
      * This constructor contains the functions for the settingsGUI
      */
@@ -54,17 +47,13 @@ public class SettingsGUI extends JFrame {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
-
         pnlMain.setBackground(Color.WHITE);
-
         pnlMain.setLayout(null);
-
         lblSettings.setFont(myFont);
         lblMusic.setFont(myFont);
         lblPiOn.setVisible(false);
         lblPiOff.setVisible(false);
         lblPi3Ok.setVisible(false);
-
         btnOk.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         btnOff.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         btnOn.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -72,12 +61,12 @@ public class SettingsGUI extends JFrame {
         addContents();
         addListeners();
         setBoundsForContents();
-        
-        
+
     }
 
     /**
-     * This method sets size and location for the buttons and labels in the SettingsGUI
+     * This method sets size and location for the buttons and labels in the
+     * SettingsGUI
      */
     private void setBoundsForContents() {
         lblSettings.setBounds(40, 10, 300, 60);
@@ -198,7 +187,7 @@ public class SettingsGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            controller.setWindowOpen(false);  //karl
+            controller.setWindowOpen(false); // karl
         }
     }
 
@@ -206,7 +195,7 @@ public class SettingsGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-        //    musicController.playMusic("music/MenuMusic.wav"); Kommenterat ut för att testa inställningar.
+            // musicController.playMusic("music/MenuMusic.wav"); Kommenterat ut för att testa inställningar.
             musicController.playMusic("music/GameOver.wav");
         }
     }
@@ -218,11 +207,11 @@ public class SettingsGUI extends JFrame {
             musicController.stopMusic();
         }
     }
+
     /**
-     * If you press the X in the upper right corner of the frame this will happen 
-     * //Karl
+     * If you press the X in the upper right corner of the frame this will happen //Karl
      */
-    public void XButtonPressed() {
+    private void XButtonPressed() {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.addWindowListener(new WindowAdapter() {
@@ -232,5 +221,5 @@ public class SettingsGUI extends JFrame {
             }
         });
     }
-    
+
 }
