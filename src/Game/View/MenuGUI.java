@@ -55,6 +55,7 @@ public class MenuGUI extends JFrame {
     private JLabel lblGhostSettings = new JLabel();
     private JLabel lblPiHelp = new JLabel(iconPi);
     private JLabel lblGhostHelp = new JLabel();
+    private int dropspeed;
 
     /**
      * This method contains Memorias main menu GUI
@@ -237,7 +238,26 @@ public class MenuGUI extends JFrame {
         public void mouseClicked(MouseEvent e) {
             setVisible(false);
             dispose();
-            controller.startJokerGame();
+            String[] buttons = { "Low", "Medium", "High" };      //Per kunna välja svårighetsgrad
+        int returnValue = JOptionPane.showOptionDialog(null, "Choose Difficulty", "Difficulty",
+        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[0]);
+           
+        if(returnValue == 0){
+            dropspeed = 50;
+            controller.startJokerGame(dropspeed);
+        }
+        if(returnValue == 1){
+            dropspeed = 30;
+            controller.startJokerGame(dropspeed);
+        }
+        if(returnValue == 2){
+            dropspeed = 20;
+            controller.startJokerGame(dropspeed);
+        }
+        if (returnValue == JOptionPane.CLOSED_OPTION){
+            controller.switchToMenu();
+        }
+           
 
         }
 

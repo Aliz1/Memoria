@@ -27,7 +27,7 @@ public class DropCardsThread implements Runnable {
     private int points = 0; // Store current score.
     private int matches = 0;
     private int NBR_OF_PROBLEMS_IN_BUFFER = 10;
-    private int dropSpeed = 30;
+    private int dropSpeed = 30; 
     private boolean singlePlayer;
     private ArrayList<String> solutionsOnScreenList; // Jenny
 
@@ -55,7 +55,7 @@ public class DropCardsThread implements Runnable {
      * @param controller The shared controller class
      * @param problems   The number of problems to use in single player mode
      */
-    public DropCardsThread(Controller controller, int problems, String title) {
+    public DropCardsThread(Controller controller, int problems, String title, int dropspeed) {
         this.controller = controller;
         jokerGameGui = new JokerGameGUI(title, controller);
         jokerGameGui.setMode("Singleplayer"); // Added by Jenny
@@ -65,6 +65,7 @@ public class DropCardsThread implements Runnable {
         fallingDropsList = new ArrayList<CardDropTask>(NBR_OF_PROBLEMS_IN_BUFFER);
         setupDropList(); // Setup list of drop threads.
         solutionsOnScreenList = new ArrayList<String>(); // Added by Jenny
+        dropSpeed = dropspeed;
         new Thread(this).start();
 
     }

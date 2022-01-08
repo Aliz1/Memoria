@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Game",
+            "request": "launch",
+            "mainClass": "Game.Controller.Game",
+            "projectName": "Memoria_7e7da3ec"
+        },
+        {
+            "type": "java",
             "name": "Launch HighscoresGUI",
             "request": "launch",
             "mainClass": "Game.View.HighscoresGUI",

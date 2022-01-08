@@ -36,7 +36,8 @@ public class JokerGameGUI extends JFrame {
     private JLabel lblMemoriaLogo = new JLabel(iconMemoriaLogo);
     private JPanel pnlIcons;
     private Controller controller;
-
+    private ImageIcon lava = new ImageIcon("images/lava.png");
+    private JLabel lavalabel = new JLabel(lava);
     /**
      * Construct and initialize the GUI.
      */
@@ -127,6 +128,11 @@ public class JokerGameGUI extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             char c = e.getKeyChar();
+
+            if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){  //Per ta bort allt man skrivit med backspace
+                answerTyped = "";    
+
+            }
             if ("1234567890".contains(String.valueOf(c))) { // Only react to numeric values.
                 if (answerTyped.length() == 1) {
                     answerTyped += String.valueOf(c);
@@ -135,7 +141,11 @@ public class JokerGameGUI extends JFrame {
                 }
             }
             labelTyping.setText(answerTyped);
+        
+        
         }
+
+       
 
         @Override
         public void keyReleased(KeyEvent e) {
@@ -179,6 +189,8 @@ public class JokerGameGUI extends JFrame {
         pnlNorth.add(pnlTyping, BorderLayout.CENTER);
         pnlMain.add(pnlNorth, BorderLayout.NORTH);
         pnlMain.add(pnlGame, BorderLayout.CENTER);
+        pnlMain.add(lavalabel, BorderLayout.PAGE_END); //Per
+
 
     }
 
@@ -207,6 +219,7 @@ public class JokerGameGUI extends JFrame {
         pnlCenterTyping.add(labelTyping, BorderLayout.CENTER);
         pnlTyping.add(pnlCenterTyping, BorderLayout.CENTER);
         pnlTyping.add(textFieldPoints, BorderLayout.EAST);
+       
     }
 
     private class BackButtonListener implements java.awt.event.ActionListener {

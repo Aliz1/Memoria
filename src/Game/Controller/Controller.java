@@ -332,8 +332,8 @@ public class Controller {
         }
     }
     //Karl
-    public void startJokerGame(){
-      dropCardsThread = new DropCardsThread(this, 29, "Singleplayer");
+    public void startJokerGame(int dropspeed){
+      dropCardsThread = new DropCardsThread(this, 29, "Singleplayer", dropspeed);
     }
     //karl
     public void setWindowOpen(boolean windowOpen){
