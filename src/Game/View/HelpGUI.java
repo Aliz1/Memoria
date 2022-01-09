@@ -35,7 +35,7 @@ public class HelpGUI extends JFrame {
      */
     public HelpGUI(Controller controller) {
         this.controller = controller;
-        setSize(700, 700);
+        setSize(700, 750); //Per
         setLocationRelativeTo(null);
         setVisible(true);
         add(container);
@@ -164,7 +164,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp1Bild);
 
         public Panel1() {
-            setSize(700, 700);
+            setSize(700, 1000);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -179,7 +179,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp2Bild);
 
         public Panel2() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -195,7 +195,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp3Bild);
 
         public Panel3() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -211,7 +211,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp4Bild);
 
         public Panel4() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -226,7 +226,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp5Bild);
 
         public Panel5() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -241,7 +241,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp6Bild);
 
         public Panel6() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -256,7 +256,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp6Bild);
 
         public Panel7() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -271,7 +271,7 @@ public class HelpGUI extends JFrame {
         private JLabel lblbild = new JLabel(hjälp6Bild);
 
         public Panel8() {
-            setSize(700, 700);
+            setSize(700, 750);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
