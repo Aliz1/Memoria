@@ -243,15 +243,15 @@ public class MenuGUI extends JFrame {
         JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[0]);
            
         if(returnValue == 0){
-            dropspeed = 40;
+            dropspeed = 50;
             controller.startJokerGame(dropspeed);
         }
         if(returnValue == 1){
-            dropspeed = 30;
+            dropspeed = 40;
             controller.startJokerGame(dropspeed);
         }
         if(returnValue == 2){
-            dropspeed = 25;
+            dropspeed = 30;
             controller.startJokerGame(dropspeed);
         }
         if (returnValue == JOptionPane.CLOSED_OPTION){
